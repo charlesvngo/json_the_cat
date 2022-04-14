@@ -3,14 +3,14 @@ const request = require('request');
 const fetchBreedDescription = function(breedName, callback) {
   request(`https://api.thecatapi.com/v1/breeds/search?q=${breedName}`, (error, response, body) => {
     if (error) {
-      return callback("Error connecting to API. Please check the URL of the API. ");
+      return callback("Error connecting to API. Please check the URL of the API. ", null);
     }
     if (response.statusCode !== 200) {
-      return callback(`URL is not correct. Status code :${response.statusCode}`);
+      return callback(`URL is not correct. Status code :${response.statusCode}`, null);
     }
     let parsedBody = JSON.parse(body)[0];
     if (parsedBody === undefined) {
-      return callback("Please enter in a valid cat breed. ");
+      return callback("Please enter in a valid cat breed. ", null);
     }
     callback(error, parsedBody.description);
   });
